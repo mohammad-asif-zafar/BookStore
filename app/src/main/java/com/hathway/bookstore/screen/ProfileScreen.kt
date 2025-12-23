@@ -6,10 +6,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 
 @Composable
-fun ProfileScreen(onBack: () -> Unit) {
+fun ProfileScreen() {
     Column {
         Text("Profile Screen")
-        Button(onClick = onBack) {
+        Button(onClick = {}) {
             Text("Back")
         }
     }

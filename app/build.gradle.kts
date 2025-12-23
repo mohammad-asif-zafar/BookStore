@@ -7,9 +7,7 @@ plugins {
 
 android {
     namespace = "com.hathway.bookstore"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.hathway.bookstore"
@@ -53,7 +51,7 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     
     // Navigation Compose
-    implementation(libs.androidx.navigation3.compose)
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
 
     testImplementation(libs.junit)

@@ -4,18 +4,19 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import com.hathway.bookstore.components.SearchToolbar
 
 @Composable
 fun HomeScreen(
-    onProfileClick: () -> Unit, onDetailsClick: (Int) -> Unit
-) {
-    Column {
-        Button(onClick = onProfileClick) {
-            Text("Go to Profile")
-        }
 
-        Button(onClick = { onDetailsClick(42) }) {
-            Text("Go to Details")
-        }
-    }
+) {
+    SearchToolbar(modifier = Modifier, onProfileClick = {}, onSearchChange = {})
+}
+
+@Preview
+@Composable
+private fun PreViewSearchToolbar() {
+    SearchToolbar(modifier = Modifier, onProfileClick = {}, onSearchChange = {})
 }

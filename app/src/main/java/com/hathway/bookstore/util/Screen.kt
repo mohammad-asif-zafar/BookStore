@@ -1,14 +1,32 @@
 package com.hathway.bookstore.util
 
-import kotlinx.serialization.Serializable
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.ui.graphics.vector.ImageVector
 
 sealed interface Screen {
-    @Serializable
     data object Home : Screen
-
-    @Serializable
     data object Profile : Screen
+    data object Details : Screen
+    data object Setting : Screen
+}
 
-    @Serializable
-    data class Details(val userId: Int) : Screen
+sealed class BottomNavItem(
+    val route: String, val title: String, val icon: ImageVector
+) {
+    object Home :
+        BottomNavItem(route = Routes.HOME, title = TitleScreenName.HOME, Icons.Default.Home)
+
+    object Search :
+        BottomNavItem(route = Routes.DETAILS, title = TitleScreenName.DETAILS, Icons.Default.Delete)
+
+    object Profile :
+        BottomNavItem(route = Routes.PROFILE, title = TitleScreenName.PROFILE, Icons.Default.Person)
+
+    object Setting : BottomNavItem(
+        route = Routes.SETTING, title = TitleScreenName.SETTING, Icons.Default.Settings
+    )
 }

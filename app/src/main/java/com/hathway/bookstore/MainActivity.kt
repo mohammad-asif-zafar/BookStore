@@ -4,20 +4,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation3.compose.NavHost
-import androidx.navigation3.compose.rememberNavController
-import androidx.navigation3.compose.composable
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.hathway.bookstore.screen.BottomBar
 import com.hathway.bookstore.screen.DetailsScreen
 import com.hathway.bookstore.screen.HomeScreen
 import com.hathway.bookstore.screen.ProfileScreen
+import com.hathway.bookstore.screen.SettingScreen
 import com.hathway.bookstore.ui.theme.BookStoreTheme
-import com.hathway.bookstore.util.Screen
 
 class MainActivity : ComponentActivity() {
 
@@ -26,64 +24,25 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             BookStoreTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                val navController = rememberNavController()
+                Scaffold(
+                    bottomBar = { BottomBar(navController) }) { padding ->
+
+                    NavHost(
+                        navController = navController,
+                        startDestination = "home",
+                        modifier = Modifier.padding(padding)
+                    ) {
+                        composable("home") { HomeScreen() }
+                        composable("detail") { DetailsScreen() }
+                        composable("profile") { ProfileScreen() }
+                        composable("setting") { SettingScreen() }
+                    }
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    val navController = rememberNavController()
 
-    NavHost(
-        navController = navController,
-        startDestination = Screen.Home,
-        modifier = modifier
-    ) {
 
-        composable<Screen.Home> {
-            HomeScreen(
-                onProfileClick = {
-                    navController.navigate(Screen.Profile)
-                },
-                onDetailsClick = { id ->
-                    navController.navigate(Screen.Details(id))
-                }
-            )
-        }
-
-        composable<Screen.Profile> {
-            ProfileScreen(
-                onBack = {
-                    navController.popBackStack()
-                }
-            )
-        }
-
-        composable<Screen.Details> { backStackEntry ->
-            val details: Screen.Details = backStackEntry.toRoute()
-            DetailsScreen(
-                userId = details.userId,
-                onBack = {
-                    navController.popBackStack()
-                }
-            )
-        }
-    }
-
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    BookStoreTheme {
-        Greeting("Android")
-    }
-
-}
