@@ -16,6 +16,7 @@ import com.hathway.bookstore.screen.HomeScreen
 import com.hathway.bookstore.screen.ProfileScreen
 import com.hathway.bookstore.screen.SettingScreen
 import com.hathway.bookstore.ui.theme.BookStoreTheme
+import com.hathway.bookstore.util.Routes
 
 class MainActivity : ComponentActivity() {
 
@@ -30,13 +31,13 @@ class MainActivity : ComponentActivity() {
 
                     NavHost(
                         navController = navController,
-                        startDestination = "home",
-                        modifier = Modifier.padding(padding)
+                        startDestination = Routes.HOME,
+                        modifier = Modifier.padding(paddingValues = padding)
                     ) {
-                        composable("home") { HomeScreen() }
-                        composable("detail") { DetailsScreen() }
-                        composable("profile") { ProfileScreen() }
-                        composable("setting") { SettingScreen() }
+                        composable(route = Routes.HOME) { HomeScreen() }
+                        composable(route = Routes.DETAILS) { DetailsScreen() }
+                        composable(route = Routes.PROFILE) { ProfileScreen() }
+                        composable(route = Routes.SETTING) { SettingScreen() }
                     }
                 }
             }
