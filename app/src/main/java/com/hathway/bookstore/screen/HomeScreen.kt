@@ -3,20 +3,17 @@ package com.hathway.bookstore.screen
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.EmojiEvents
 import androidx.compose.material.icons.outlined.Notifications
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -38,96 +35,63 @@ import com.hathway.bookstore.components.CourseHighlightCard
 import com.hathway.bookstore.components.SearchToolbar
 import com.hathway.bookstore.components.SectionHeaderHome
 import com.hathway.bookstore.components.ToolBar
+import com.hathway.bookstore.data.CourseUiModel
 import com.hathway.bookstore.mock.MockCourseRepository
 import com.hathway.bookstore.repo.HomeViewModelFactory
+import com.hathway.bookstore.ui.theme.Light_Grey
 import com.hathway.bookstore.uistate.BookingUiState
 import com.hathway.bookstore.uistate.HighlightUiState
 import com.hathway.bookstore.uistate.TrendingUiState
 import com.hathway.bookstore.viewmodel.HomeViewModel
 
 @Composable
-fun HomeScreen(
+fun HomeScreen() {
 
-) {
     val repository = remember { MockCourseRepository() }
-
-    val viewModel: HomeViewModel = viewModel(factory = HomeViewModelFactory(repository))
+    val viewModel: HomeViewModel = viewModel(
+        factory = HomeViewModelFactory(repository)
+    )
 
     val highlightState by viewModel.highlightState.collectAsState()
     val bookingState by viewModel.bookingState.collectAsState()
     val trendingState by viewModel.trendingState.collectAsState()
 
-    Column {
-        ToolBar(
-            modifier = Modifier.fillMaxWidth(),
+    LazyColumn(
+        modifier = Modifier.fillMaxWidth(), contentPadding = PaddingValues(bottom = 16.dp)
+    ) {
 
-            // ⬅️ Back button
-            backEnable = false,
-            onBackClick = {
-                println("Back clicked")
-            },
-            backIcon = Icons.AutoMirrored.Filled.ArrowBack,
-            backIconTint = Color.Black,
-            backGroundColor = Color.Transparent,
-            backBorder = 1.dp,
-            backBorderColor = Color.Gray,
-            backElevation = 4.dp,
+        // 🔹 Toolbar
+        item {
+            ToolBar(
+                modifier = Modifier.fillMaxWidth(),
+                backEnable = false,
+                title = stringResource(R.string.learnify),
+                titleSize = 24.sp,
+                titleWeight = FontWeight.Medium,
+                middleEnable = true,
+                middleIcon = Icons.Outlined.EmojiEvents,
+                endEnable = true,
+                endIcon = Icons.Outlined.Notifications
+            )
+        }
 
-            // 🏷 Title
-            title = stringResource(R.string.learnify),
-            titleColor = Color.Black,
-            titleSize = 24.sp,
-            titleWeight = FontWeight.Medium,
-            titleAlignment = Alignment.Start, // (note: not used in Row)
-
-            // 🏆 Middle icon (Leaderboard)
-            middleEnable = true,
-            onMiddleClick = {
-                println("Leaderboard clicked")
-            },
-            middleIcon = Icons.Outlined.EmojiEvents,
-            middleIconTint = Color.Black,
-            middleGroundColor = Color.Transparent,
-            middleElevation = 4.dp,
-            middleBorder = 1.dp,
-            middleBorderColor = Color.Gray,
-
-            // 🔔 End icon (Notifications)
-            endEnable = true,
-            onEndClick = {
-                println("Notifications clicked")
-            },
-            endIcon = Icons.Outlined.Notifications,
-            endIconTint = Color.Black,
-            endGroundColor = Color.Transparent,
-            endBorder = 1.dp,
-            endBorderColor = Color.Gray,
-            endElevation = 4.dp
-        )
-
-        Column(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 2.dp)) {
-
+        // 🔹 Trending section
+        item {
             Spacer(modifier = Modifier.height(8.dp))
 
-            // 🔹 Trending section
             when (trendingState) {
-                is TrendingUiState.Loading -> {
-                    // shimmer
-                }
-
                 is TrendingUiState.Success -> {
                     val courses = (trendingState as TrendingUiState.Success).courses
+
                     LazyRow(
-                        modifier = Modifier.fillMaxWidth(),
                         contentPadding = PaddingValues(horizontal = 8.dp),
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        items(items = courses, key = { it.id } // ✅ stable key
-                        ) { item ->
+                        items(courses, key = { it.id }) { item ->
                             CapsuleIconButton(
-                                onClick = { },   // ✅ no index
-                                icon = item.icon,                  // ✅ from model
-                                text = item.title,                 // ✅ from model
+                                onClick = {},
+                                icon = item.icon,
+                                text = item.title,
                                 iconTint = item.iconTint,
                                 backgroundColor = item.backgroundColor,
                                 textColor = item.textColor,
@@ -135,31 +99,34 @@ fun HomeScreen(
                             )
                         }
                     }
-
                 }
 
                 is TrendingUiState.Error -> {
-                    Text("Failed to load bookings")
+                    Text("Failed to load trending")
                 }
+
+                else -> {}
             }
+        }
 
-            Spacer(modifier = Modifier.height(8.dp))
-
+        // 🔹 Continue learning
+        item {
+            Spacer(modifier = Modifier.height(16.dp))
             SectionHeaderHome(title = "Continue learning")
-
             Spacer(modifier = Modifier.height(8.dp))
+        }
 
-            // 🔹 Highlight section
+        // 🔹 Highlight cards
+        item {
             when (highlightState) {
-                is HighlightUiState.Loading -> {
-                    // shimmer
-                }
-
                 is HighlightUiState.Success -> {
-                    val courses = (highlightState as HighlightUiState.Success).courses
-
-                    LazyRow {
-                        items(courses) {
+                    LazyRow(
+                        contentPadding = PaddingValues(horizontal = 8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        items(
+                            (highlightState as HighlightUiState.Success).courses,
+                            key = { it.title }) {
                             CourseHighlightCard(course = it)
                         }
                     }
@@ -168,25 +135,25 @@ fun HomeScreen(
                 is HighlightUiState.Error -> {
                     Text("Failed to load highlights")
                 }
+
+                else -> {}
             }
+        }
 
-            Spacer(modifier = Modifier.height(8.dp))
-
+        // 🔹 Booking section
+        item {
+            Spacer(modifier = Modifier.height(16.dp))
             SectionHeaderHome(title = "Popular 1-on-1 Sessions")
-
             Spacer(modifier = Modifier.height(8.dp))
 
-            // 🔹 Booking section
             when (bookingState) {
-                is BookingUiState.Loading -> {
-                    // shimmer
-                }
-
                 is BookingUiState.Success -> {
-                    val courses = (bookingState as BookingUiState.Success).courses
-
-                    LazyRow {
-                        items(courses) {
+                    LazyRow(
+                        contentPadding = PaddingValues(horizontal = 8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        items(
+                            (bookingState as BookingUiState.Success).courses, key = { it.title }) {
                             CourseBookingCard(course = it)
                         }
                     }
@@ -199,10 +166,26 @@ fun HomeScreen(
                 else -> {}
             }
         }
+
+        // 🔹 Bottom spacing
+        item {
+            Spacer(modifier = Modifier.height(24.dp))
+        }
+
+        item {
+            CourseHighlightCard(
+                course = CourseUiModel(
+                    title = "Foundations of UX Design",
+                    subtitle = "Instructor: Marsh Hove • Beginner Friendly",
+                    meta = "6 Modules • 19h 59m",
+                    imageRes = com.hathway.bookstore.R.drawable.icons_person,
+                    backgroundColor = Light_Grey.value.toInt()
+                ), modifier = Modifier.padding(16.dp)
+            )
+        }
     }
-
-
 }
+
 
 @Preview
 @Composable

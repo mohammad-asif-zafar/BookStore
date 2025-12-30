@@ -27,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hathway.bookstore.data.CourseUiModel
+import com.hathway.bookstore.ui.theme.Light_Grey
 
 
 @Composable
@@ -40,7 +41,8 @@ fun CourseHighlightCard(
         onClick = onClick,
         modifier = modifier
             .fillMaxWidth()
-            .height(180.dp).padding(end = 10.dp),
+            .height(180.dp)
+            .padding(end = 10.dp),
         shape = RoundedCornerShape(24.dp),
         color = backgroundColor,
         tonalElevation = 4.dp,
@@ -99,4 +101,13 @@ fun CourseHighlightCard(
 @Preview(showBackground = true)
 @Composable
 fun PreviewCourseHighlightCard() {
+    CourseHighlightCard(
+        course = CourseUiModel(
+            title = "Foundations of UX Design",
+            subtitle = "Instructor: Marsh Hove • Beginner Friendly",
+            meta = "6 Modules • 19h 59m",
+            imageRes = com.hathway.bookstore.R.drawable.icons_person,
+            backgroundColor = Light_Grey.value.toInt()
+        ), modifier = Modifier.padding(16.dp)
+    )
 }
