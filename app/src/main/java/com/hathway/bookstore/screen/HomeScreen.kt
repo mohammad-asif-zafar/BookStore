@@ -36,6 +36,7 @@ import com.hathway.bookstore.components.CapsuleIconButton
 import com.hathway.bookstore.components.CourseBookingCard
 import com.hathway.bookstore.components.CourseHighlightCard
 import com.hathway.bookstore.components.SearchToolbar
+import com.hathway.bookstore.components.SectionHeaderHome
 import com.hathway.bookstore.components.ToolBar
 import com.hathway.bookstore.mock.MockCourseRepository
 import com.hathway.bookstore.repo.HomeViewModelFactory
@@ -108,6 +109,7 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(8.dp))
 
+            // 🔹 Trending section
             when (trendingState) {
                 is TrendingUiState.Loading -> {
                     // shimmer
@@ -140,33 +142,10 @@ fun HomeScreen(
                     Text("Failed to load bookings")
                 }
             }
+
             Spacer(modifier = Modifier.height(8.dp))
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 10.dp, end = 10.dp, top = 2.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "Continue learning", style = MaterialTheme.typography.titleLarge.copy(
-                        fontWeight = FontWeight.Medium
-                    ), color = Color.Black
-                )
-                Spacer(modifier = Modifier.weight(1f)) // 🚀 pushes icon to right
-
-                Text(
-                    text = "View all",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                    contentDescription = "View all",
-                    tint = MaterialTheme.colorScheme.onSurface
-                )
-            }
+            SectionHeaderHome(title = "Continue learning")
 
             Spacer(modifier = Modifier.height(8.dp))
 
@@ -192,33 +171,8 @@ fun HomeScreen(
             }
 
             Spacer(modifier = Modifier.height(8.dp))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 10.dp, end = 10.dp, top = 2.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "Popular 1-on-1 Sessions",
-                    style = MaterialTheme.typography.titleLarge.copy(
-                        fontWeight = FontWeight.Medium
-                    ),
-                    color = Color.Black
-                )
-                Spacer(modifier = Modifier.weight(1f)) // 🚀 pushes icon to right
 
-                Text(
-                    text = "View all",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                    contentDescription = "View all",
-                    tint = MaterialTheme.colorScheme.onSurface
-                )
-            }
+            SectionHeaderHome(title = "Popular 1-on-1 Sessions")
 
             Spacer(modifier = Modifier.height(8.dp))
 
