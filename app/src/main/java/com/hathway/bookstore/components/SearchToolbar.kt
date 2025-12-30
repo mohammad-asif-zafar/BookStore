@@ -3,16 +3,17 @@ package com.hathway.bookstore.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.PersonSearch
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -25,8 +26,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.hathway.bookstore.R // ✅ Correct import for your app resources
+import com.hathway.bookstore.R
 
 @Composable
 fun SearchToolbar(
@@ -48,19 +51,19 @@ fun SearchToolbar(
                 searchText = it
                 onSearchChange(it)
             },
-            placeholder = { Text("Search") },
+            placeholder = { Text(stringResource(R.string.search)) },
             singleLine = true,
             leadingIcon = {
-                Icon(Icons.Default.Search, contentDescription = null)
+                Icon(Icons.Outlined.Search, contentDescription = stringResource(R.string.search))
             },
             modifier = Modifier
                 .weight(1f)
                 .height(56.dp),
             shape = RoundedCornerShape(24.dp),
             trailingIcon = {
-              // 👤 Profile icon (right)
+                // 👤 Profile icon (right)
                 Image(
-                    painter = painterResource(id = R.drawable.icons_person), // ✅ use your drawable name
+                    imageVector = Icons.Outlined.PersonSearch, // ✅ use your drawable name
                     contentDescription = "Profile",
                     modifier = Modifier
                         .size(35.dp)
@@ -69,6 +72,11 @@ fun SearchToolbar(
             })
 
 
-
     }
+}
+
+@Preview
+@Composable
+fun PreViewSearchToolbar() {
+    SearchToolbar(modifier = Modifier, onProfileClick = {}, onSearchChange = {})
 }

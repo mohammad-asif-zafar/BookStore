@@ -53,6 +53,7 @@ dependencies {
     // Navigation Compose
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.play.services.games.v2)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -65,5 +66,9 @@ dependencies {
     // ViewModel
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.lifecycle.runtime.compose)
+
+    // Material icons 
+    implementation(libs.androidx.material.icons.extended)
+
 
 }
