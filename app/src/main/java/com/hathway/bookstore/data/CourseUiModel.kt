@@ -1,7 +1,5 @@
 package com.hathway.bookstore.data
 
-import androidx.compose.ui.graphics.Color
-
 data class CourseUiModel(
     val id: String = "",
     val title: String = "",

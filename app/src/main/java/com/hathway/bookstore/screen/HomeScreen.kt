@@ -1,7 +1,6 @@
 package com.hathway.bookstore.screen
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,7 +10,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.outlined.EmojiEvents
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material3.Text
@@ -19,9 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,7 +28,6 @@ import com.hathway.bookstore.R
 import com.hathway.bookstore.components.CapsuleIconButton
 import com.hathway.bookstore.components.CourseBookingCard
 import com.hathway.bookstore.components.CourseHighlightCard
-import com.hathway.bookstore.components.SearchToolbar
 import com.hathway.bookstore.components.SectionHeaderHome
 import com.hathway.bookstore.components.ToolBar
 import com.hathway.bookstore.data.CourseUiModel
@@ -178,7 +173,7 @@ fun HomeScreen() {
                     title = "Foundations of UX Design",
                     subtitle = "Instructor: Marsh Hove • Beginner Friendly",
                     meta = "6 Modules • 19h 59m",
-                    imageRes = com.hathway.bookstore.R.drawable.icons_person,
+                    imageRes = R.drawable.icons_person,
                     backgroundColor = Light_Grey.value.toInt()
                 ), modifier = Modifier.padding(16.dp)
             )
@@ -190,5 +185,5 @@ fun HomeScreen() {
 @Preview
 @Composable
 private fun PreViewSearchToolbar() {
-    SearchToolbar(modifier = Modifier, onProfileClick = {}, onSearchChange = {})
+    HomeScreen()
 }

@@ -6,8 +6,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.outlined.EmojiEvents
 import androidx.compose.material.icons.outlined.Notifications
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,50 +19,53 @@ import com.hathway.bookstore.components.ToolBar
 
 @Composable
 fun ProfileScreen() {
-    ToolBar(
-        modifier = Modifier.fillMaxWidth(),
+    Column {
+        ToolBar(
+            modifier = Modifier.fillMaxWidth(),
 
-        // ⬅️ Back button
-        backEnable = false,
-        onBackClick = {
-            println("Back clicked")
-        },
-        backIcon = Icons.AutoMirrored.Filled.ArrowBack,
-        backIconTint = Color.Black,
-        backGroundColor = Color.Transparent,
-        backBorder = 1.dp,
-        backBorderColor = Color.Gray,
-        backElevation = 4.dp,
+            // ⬅️ Back button
+            backEnable = true,
+            onBackClick = {
+                println("Back clicked")
+            },
+            backIcon = Icons.AutoMirrored.Filled.ArrowBack,
+            backIconTint = Color.Black,
+            backGroundColor = Color.Transparent,
+            backBorder = 1.dp,
+            backBorderColor = Color.Gray,
+            backElevation = 4.dp,
 
-        // 🏷 Title
-        title = stringResource(id = R.string.profile),
-        titleColor = Color.Black,
-        titleSize = 16.sp,
-        titleWeight = FontWeight.Medium,
-        titleAlignment = Alignment.Start, // (note: not used in Row)
+            // 🏷 Title
+            title = stringResource(id = R.string.profile),
+            titleColor = Color.Black,
+            titleSize = 16.sp,
+            titleWeight = FontWeight.Medium,
+            titleAlignment = Alignment.Start, // (note: not used in Row)
 
-        // 🏆 Middle icon (Leaderboard)
-        middleEnable = true,
-        onMiddleClick = {
-            println("Leaderboard clicked")
-        },
-        middleIcon = Icons.Outlined.EmojiEvents,
-        middleIconTint = Color.Black,
-        middleGroundColor = Color.Transparent,
-        middleElevation = 4.dp,
-        middleBorder = 1.dp,
-        middleBorderColor = Color.Gray,
+            // 🏆 Middle icon (Leaderboard)
+            middleEnable = false,
+            onMiddleClick = {
+                println("Leaderboard clicked")
+            },
+            middleIcon = Icons.Outlined.EmojiEvents,
+            middleIconTint = Color.Black,
+            middleGroundColor = Color.Transparent,
+            middleElevation = 4.dp,
+            middleBorder = 1.dp,
+            middleBorderColor = Color.Gray,
 
-        // 🔔 End icon (Notifications)
-        endEnable = true,
-        onEndClick = {
-            println("Notifications clicked")
-        },
-        endIcon = Icons.Outlined.Notifications,
-        endIconTint = Color.Black,
-        endGroundColor = Color.Transparent,
-        endBorder = 1.dp,
-        endBorderColor = Color.Gray,
-        endElevation = 4.dp
-    )
+            // 🔔 End icon (Notifications)
+            endEnable = true,
+            onEndClick = {
+                println("Notifications clicked")
+            },
+            endIcon = Icons.Outlined.Notifications,
+            endIconTint = Color.Black,
+            endGroundColor = Color.Transparent,
+            endBorder = 1.dp,
+            endBorderColor = Color.Gray,
+            endElevation = 4.dp
+        )
+        QuizScreen()
+    }
 }
