@@ -90,7 +90,7 @@ fun ToolBar(
             // ⬅️ Back button
 
             if (backEnable) FilledCircularBackButton(
-                onClick = { { onBackClick } },
+                onClick = onBackClick,
                 icon = backIcon,
                 backgroundColor = backGroundColor,
                 iconTint = backIconTint,
@@ -109,7 +109,7 @@ fun ToolBar(
             Spacer(modifier = Modifier.weight(1f))
             // 🏆 Middle icon
             if (middleEnable) FilledCircularBackButton(
-                onClick = { onMiddleClick },
+                onClick =  onMiddleClick ,
                 icon = middleIcon,
                 backgroundColor = middleGroundColor,
                 iconTint = middleIconTint,
@@ -120,7 +120,7 @@ fun ToolBar(
 
             // 🔔 End icon
             if (endEnable) FilledCircularBackButton(
-                onClick = { onEndClick },
+                onClick =  onEndClick ,
                 icon = endIcon,
                 backgroundColor = endGroundColor,
                 iconTint = endIconTint,

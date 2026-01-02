@@ -1,7 +1,7 @@
 package com.hathway.bookstore.data
 
 data class CourseUiModel(
-    val id: String = "",
+    val id: Int = 0,
     val title: String = "",
     val subtitle: String = "",
     val meta: String = "",

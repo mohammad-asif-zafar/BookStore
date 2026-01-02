@@ -43,9 +43,7 @@ import com.hathway.bookstore.viewmodel.HomeViewModel
 fun HomeScreen() {
 
     val repository = remember { MockCourseRepository() }
-    val viewModel: HomeViewModel = viewModel(
-        factory = HomeViewModelFactory(repository)
-    )
+    val viewModel: HomeViewModel = viewModel(factory = HomeViewModelFactory(repository))
 
     val highlightState by viewModel.highlightState.collectAsState()
     val bookingState by viewModel.bookingState.collectAsState()
@@ -66,7 +64,11 @@ fun HomeScreen() {
                 middleEnable = true,
                 middleIcon = Icons.Outlined.EmojiEvents,
                 endEnable = true,
-                endIcon = Icons.Outlined.Notifications
+                endIcon = Icons.Outlined.Notifications,
+                onBackClick = { println("Back") },
+                onMiddleClick = { println("Middle") },
+                onEndClick = { println("End") }
+
             )
         }
 
@@ -84,7 +86,7 @@ fun HomeScreen() {
                     ) {
                         items(courses, key = { it.id }) { item ->
                             CapsuleIconButton(
-                                onClick = {},
+                                onClick = { println("Items $item ") },
                                 icon = item.icon,
                                 text = item.title,
                                 iconTint = item.iconTint,
@@ -107,7 +109,10 @@ fun HomeScreen() {
         // 🔹 Continue learning
         item {
             Spacer(modifier = Modifier.height(16.dp))
-            SectionHeaderHome(title = "Continue learning")
+            SectionHeaderHome(
+                title = "Continue learning", onMoreClick = {
+                    println("More")
+                })
             Spacer(modifier = Modifier.height(8.dp))
         }
 
@@ -122,7 +127,8 @@ fun HomeScreen() {
                         items(
                             (highlightState as HighlightUiState.Success).courses,
                             key = { it.title }) {
-                            CourseHighlightCard(course = it)
+                            CourseHighlightCard(
+                                course = it, onClick = { println("Hello $it") })
                         }
                     }
                 }
@@ -138,7 +144,9 @@ fun HomeScreen() {
         // 🔹 Booking section
         item {
             Spacer(modifier = Modifier.height(16.dp))
-            SectionHeaderHome(title = "Popular 1-on-1 Sessions")
+            SectionHeaderHome(title = "Popular 1-on-1 Sessions", onMoreClick = {
+                println("Sessions on click")
+            })
             Spacer(modifier = Modifier.height(8.dp))
 
             when (bookingState) {
@@ -149,13 +157,17 @@ fun HomeScreen() {
                     ) {
                         items(
                             (bookingState as BookingUiState.Success).courses, key = { it.title }) {
-                            CourseBookingCard(course = it)
+                            CourseBookingCard(course = it,onBookClick = {println("Course book $it")})
                         }
                     }
                 }
 
                 is BookingUiState.Error -> {
                     Text("Failed to load bookings")
+                }
+
+                is BookingUiState.Loading -> {
+                    Text("Loading bookings")
                 }
 
                 else -> {}
@@ -175,8 +187,7 @@ fun HomeScreen() {
                     meta = "6 Modules • 19h 59m",
                     imageRes = R.drawable.icons_person,
                     backgroundColor = Light_Grey.value.toInt()
-                ), modifier = Modifier.padding(16.dp)
-            )
+                ), modifier = Modifier.padding(16.dp), onClick = { println("Cards") })
         }
     }
 }

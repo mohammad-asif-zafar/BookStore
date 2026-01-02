@@ -1,5 +1,6 @@
 package com.hathway.bookstore.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,9 +15,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 
 @Composable
-fun SectionHeaderHome(title: String) {
+fun SectionHeaderHome(title: String,onMoreClick: () -> Unit = {}) {
     Row(
-        modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically
+        modifier = Modifier.fillMaxWidth()
+            .clickable { onMoreClick() },   // ✅ FULL HEADER CLICK
+         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = title, style = MaterialTheme.typography.titleLarge.copy(

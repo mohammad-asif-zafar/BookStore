@@ -3,6 +3,7 @@
 package com.hathway.bookstore.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -41,6 +42,7 @@ fun CourseBookingCard(
         color = MaterialTheme.colorScheme.surface,
         tonalElevation = 4.dp,
         shadowElevation = 4.dp,
+        onClick = onBookClick
 
     ) {
         Column(

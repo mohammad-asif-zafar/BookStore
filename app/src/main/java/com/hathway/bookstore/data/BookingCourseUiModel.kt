@@ -3,7 +3,7 @@ package com.hathway.bookstore.data
 import androidx.compose.ui.graphics.Color
 
 data class BookingCourseUiModel(
-    val id: String = "",
+    val id: Int = 0,
     val title: String = "",
     val price: String = "",
     val imageRes: Int = 0,
